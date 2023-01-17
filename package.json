@@ -1,0 +1,16 @@
+{
+  "name": "mod-oper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint",
+    "test": "jest"
+  },
+  "author": "Joo-Won Jung <sanori@gmail.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "eslint": "^8.31.0",
+    "jest": "^29.3.1"
+  }
+}
