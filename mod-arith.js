@@ -55,7 +55,10 @@ class ModArith {
     return this.mul(a % m, this.inv(b % m));
   }
 
-  fact(a) {
+  fac(a) {
+    if (a < 2) {
+      return 1;
+    }
     const bigMod = BigInt(this.mod);
     let bigA = BigInt(a);
     let res = bigA;

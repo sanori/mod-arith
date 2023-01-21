@@ -11,6 +11,7 @@ describe('ModOper', () => {
   const pairs = [];
   const bigPairs =[];
   const numbers = [];
+
   beforeAll(() => {
     for (let i = 0; i < NUM_TESTS; i++) {
       const a = Math.floor(Math.random() * (RANGE_MAX - RANGE_MIN)) + RANGE_MIN;
@@ -102,6 +103,18 @@ describe('ModOper', () => {
     });
   });
 
-  describe('fact', () => {
+  describe('fac', () => {
+    const mo = new ModOper(MOD);
+    const n = 1_000;
+    const res = [1];
+    for (let i = 1n, r = 1n; i < n; i++) {
+      r = (r * i) % BIG_MOD;
+      res[i] = Number(r);
+    }
+    test('should return the value of factorial', () => {
+      for (let i = 0; i < n; i++) {
+        expect(mo.fac(i)).toBe(res[i]);
+      }
+    })
   });
 });
