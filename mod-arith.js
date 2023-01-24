@@ -44,7 +44,7 @@ class ModArith {
     const m = (typeof a === 'bigint') ? BigInt(this.mod) : this.mod;
     const [g, x, _] = ModArith.gcdExtended(a, m);
     if (g != 1) {
-      throw new RangeError('Division by Zero');
+      throw new RangeError('Division by zero');
     }
     return (x % m + m) % m;
   }

@@ -12,13 +12,16 @@ describe('ModOper', () => {
   const bigPairs =[];
   const numbers = [];
 
+  // Generate test cases
   beforeAll(() => {
+    // pairs of numbers within RANGE_MIN ~ RANGE_MAX - 1
     for (let i = 0; i < NUM_TESTS; i++) {
       const a = Math.floor(Math.random() * (RANGE_MAX - RANGE_MIN)) + RANGE_MIN;
       const b = Math.floor(Math.random() * (RANGE_MAX - RANGE_MIN)) + RANGE_MIN;
       pairs[i] = [a, b];
       bigPairs[i] = [BigInt(a), BigInt(b)];
     }
+    // numbers within 0 ~ MOD
     for (let i = 0; i < NUM_TESTS; i++) {
       const a = Math.floor(Math.random() * MOD);
       numbers[i] = a;
@@ -69,10 +72,14 @@ describe('ModOper', () => {
 
   describe('inv', () => {
     const mo = new ModOper(MOD);
+    test('should raise RangeError when the input is 0', () => {
+      expect(() => mo.inv(0)).toThrow(RangeError);
+      expect(() => mo.inv(MOD)).toThrow(RangeError);
+    });
     test('should generate inverse of input', () => {
       for (const a of numbers) {
         const b = mo.inv(a);
-        expect((BigInt(a) * BigInt(b)) % BigInt(MOD)).toBe(1n);
+        expect((BigInt(a) * BigInt(b)) % BIG_MOD).toBe(1n);
       }
     });
     test('should work with BigInt type', () => {
@@ -85,11 +92,16 @@ describe('ModOper', () => {
 
   describe('div', () => {
     const mo = new ModOper(MOD);
+    test('should raise "RangeError: Division by zero" when the denominator is 0', () => {
+      const f = () => mo.div(10, 0);
+      expect(f).toThrow(RangeError);
+      expect(f).toThrow('Division by zero');
+    });
     test('should return division value of modular', () => {
       for (const [a, b] of pairs) {
         const c = mo.div(a, b);
         const d = mo.div(a, c);
-        expect((BigInt(b) * BigInt(c)) % BigInt(MOD)).toBe(BigInt(a % MOD));
+        expect((BigInt(b) * BigInt(c)) % BIG_MOD).toBe(BigInt(a % MOD));
         expect(b % MOD).toBe(d);
       }
     });
