@@ -55,6 +55,20 @@ class ModArith {
     return this.mul(a % m, this.inv(b % m));
   }
 
+  pow(a, b) {
+    let res = (typeof a === 'bigint') ? 1n : 1;
+    const two = (typeof b === 'bigint') ? 2n: 2;
+    while (b != 0) {
+      if (b % two) {
+        res = this.mul(res, a);
+        b--;
+      }
+      b /= two;
+      a = this.mul(a, a);
+    }
+    return res;
+  }
+
   fac(a) {
     if (a < 2) {
       return 1;

@@ -9,7 +9,7 @@ const NUM_TESTS = 1000;
 
 describe('ModOper', () => {
   const pairs = [];
-  const bigPairs =[];
+  const bigPairs = [];
   const numbers = [];
 
   // Generate test cases
@@ -112,6 +112,26 @@ describe('ModOper', () => {
         expect((b * c) % BIG_MOD).toBe(a % BIG_MOD);
         expect(b % BIG_MOD).toBe(d);
       }
+    });
+  });
+
+  describe('pow', () => {
+    const mo = new ModOper(MOD);
+    test('should return one when the exponent is zero', () => {
+      expect(mo.pow(3, 0)).toBe(1);
+      expect(mo.pow(3n, 0n)).toBe(1n);
+    });
+    test('should return valid result in simple cases', () => {
+      expect((new ModOper(13)).pow(2, 5)).toBe(6);
+      expect((new ModOper(11)).pow(3, 7)).toBe(9);
+      expect((new ModOper(7)).pow(5, 3)).toBe(6);
+      expect((new ModOper(5)).pow(4, 9)).toBe(4);
+    });
+    test('should return valid result in simple cases in BigInt', () => {
+      expect((new ModOper(13)).pow(2n, 5n)).toBe(6n);
+      expect((new ModOper(11)).pow(3n, 7n)).toBe(9n);
+      expect((new ModOper(7)).pow(5n, 3n)).toBe(6n);
+      expect((new ModOper(5)).pow(4n, 9n)).toBe(4n);
     });
   });
 
